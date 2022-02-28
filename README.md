@@ -1,5 +1,6 @@
-# sisalud
-Un sistema para una tesis "Clinica de la Salud"
+# SiSalud
+Un sistema de turnos en linea 
+para una tesis "Clinica de la Salud"
 
 ### 1  Como implementar (deploy) en ambiente Linux
 
@@ -22,7 +23,7 @@ pip3 install -r requeriments.txt
 
 ### 3 Logearse con "admin" y "1234" 
 
-Todos los usuarios tiene la contraseña 1234
+Todos los usuarios tienen la contraseña 1234
 Listado puede ver la cuenta de los usuarios
 y logearse con ella para ver las opciones
 que segun el perfil van variando.
