@@ -1,5 +1,6 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
 import sqlite3
 from faker import *
 from random import randint,choice
@@ -12,7 +13,7 @@ N_RECEPTIONIST=3
 
 PASSWORD = 'pbkdf2:sha256:260000$l6l8pNEMnz3MSqCg$b0c10fb38d95252d4e92b63a822d8b220c874d68fb47e0f90099a645a69cef91' # 1234
 
-DB_URI = 'file:///home/user/TESIS_FINAL/v3/webapp/database.db?synchronous=off&journal=off&cache=shared&nolock=1'
+DB_URI = None
 
 social_secure=(
     (100106,'OBRA SOCIAL PARA EL PERSONAL DE LA INDUSTRIA ACEITERA DESMOTADORA Y AFINES','OSIAD'),
@@ -475,7 +476,10 @@ def main():
     insert_appointment()
     insert_turn()
     test_created()
-    print ('OK Test passed' )
+    print ('OK DB filled' )
 
 if __name__ == '__main__':
+    # get the correct path or will fail
+    DB_URI = 'file:///'+os.getcwd()+'/webapp/database.db?synchronous=off&journal=off&cache=shared&nolock=1'
+    print("Connect to : ",DB_URI)
     main()
