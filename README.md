@@ -19,7 +19,7 @@ pip3 install -r requeriments.txt
 ./run.sh
 
 
-### 2 En navegador ingresar http://127.0.0.1:8000/
+### 2 En navegador ingresar http://127.0.0.1:5000/
 
 ### 3 Logearse con "admin" y "1234" 
 
