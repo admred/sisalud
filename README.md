@@ -27,3 +27,9 @@ Todos los usuarios tienen la contraseña 1234.
 Desde el "Listado" puede ver la cuenta de los usuarios
 y logearse con ella para ver las opciones.
 Segun el perfil van variando.
+
+Este programa usa Flask 2.X , WTForms 2.X, SQLAlchemy, sqlite3 
+bootstrap4
+
+Este programa es una muestra o prueba, no asumo la responsabilidad
+por los daños ocasionados.
