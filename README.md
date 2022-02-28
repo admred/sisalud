@@ -1,6 +1,6 @@
 # SiSalud
 Un sistema de turnos en linea 
-para una tesis "Clinica de la Salud"
+para la tesis "Clinica de la Salud"
 
 ### 1  Como implementar (deploy) en ambiente Linux
 
@@ -28,8 +28,9 @@ Desde el "Listado" puede ver la cuenta de los usuarios,
 logearse con ella y explorar las opciones. Segun
 el perfil varian.
 
-Este programa usa Flask 2.X , WTForms 2.X, SQLAlchemy, sqlite3 
-bootstrap4
+Este programa usa Flask 2.X , WTForms 2.X, SQLAlchemy, Sqlite3 
+y Bootstrap4
 
 Este programa es una muestra o prueba, no asumo NINGUNA
-la responsabilidad por los daños ocasionados.
+la responsabilidad por los daños ocasionados por 
+el uso de este programa.
