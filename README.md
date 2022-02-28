@@ -24,9 +24,9 @@ pip3 install -r requeriments.txt
 ### 3 Logearse con "admin" y "1234" 
 
 Todos los usuarios tienen la contraseña 1234.
-Desde el "Listado" puede ver la cuenta de los usuarios
-y logearse con ella para ver las opciones.
-Segun el perfil van variando.
+Desde el "Listado" puede ver la cuenta de los usuarios,
+logearse con ella y explorar las opciones. Segun
+el perfil varian.
 
 Este programa usa Flask 2.X , WTForms 2.X, SQLAlchemy, sqlite3 
 bootstrap4
