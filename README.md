@@ -31,5 +31,5 @@ Segun el perfil van variando.
 Este programa usa Flask 2.X , WTForms 2.X, SQLAlchemy, sqlite3 
 bootstrap4
 
-Este programa es una muestra o prueba, no asumo la responsabilidad
-por los daños ocasionados.
+Este programa es una muestra o prueba, no asumo NINGUNA
+la responsabilidad por los daños ocasionados.
