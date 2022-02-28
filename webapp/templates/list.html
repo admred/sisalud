@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% from    "bootstrap4/pagination.html" import  render_pagination  %}
+{% from    "bootstrap4/utils.html" import render_icon %}
+
+{%- block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="text-center text-muted mt-5 mb-5">{{ title|default }}</h3>
+
+                {% block custom_bar %}
+                <div class="btn-toolbar justify-content-center mb-5 mt-5" role="toolbar">
+                <!-- search bar and actions buttons -->
+                    <form action="{{ request.path }}" method="GET" id="form-2">
+                        <div class="input-group">
+                            <input type="search" name="q" class="form-control" autocomplete="on" value="{{ request.args.get('q','') }}"/>
+                            <div class="input-group-append">
+                                <input type="submit"  class="btn btn-outline-primary" value="Buscar"/>
+                            </div>
+
+                        </div>
+                    </form>
+                    {% block extra_buttons %}{% endblock %}
+                </div>
+                {% endblock %}
+
+                {% if rows|length %}
+                <form role="form" action="delete" method="POST" id="form-1">
+                <!-- main table -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            {% if g.deletion %}
+                            <th>
+                                <button type="submit" class="rounded-pill border-0" form="form-1" title="Borrar item/s marcado/s">{{ render_icon('trash',32,'danger') }}</button>
+                            </th>
+                            {% endif %}
+                            {% for h in headers %}
+                                <th>{{ h }}</th>
+                            {% endfor %}
+
+                            <th>
+                            {% if g.writable %}
+                                <a href="create" role="button" class="rounded-pill" title="Agregar un item">{{ render_icon('plus-circle',32,'success') }}</a>
+                            {% endif %}
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in rows  -%}
+                        <tr>
+                            {%- if g.deletion %}
+                            <td>
+                                <input type="checkbox"  id="marca" name="marca" value="{{ row[0] }}" title="Marcar"/>
+                            </td>
+                            {% endif -%}
+                            {% for d  in row[1:]  -%}
+                                <td>{{ d|e }}</td>
+                            {%- endfor %}
+                            <td class="" style="width: 80px;">
+                            {% if g.writable  -%}
+                                <a href="update/{{ row[0] }}" title="Editar">{{ render_icon('pencil') }}</a>
+                            {% else %}
+                                <a href="detail/{{ row[0] }}" title="Ver">{{ render_icon('eye') }}</a>
+                            {% endif %}
+                            </td>
+                        </tr>
+                        {%- endfor -%}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="100%">
+                                <div class="row">
+                                    <div class="mx-auto" >
+                                    {{ render_pagination(pagination=paginated) }}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                </form>
+                {%- else -%}
+                    <div class="mt-5 mb-5 text-center">No se encontraron resultados. <button onclick="history.back();" class="btn btn-sm btn-secondary">Atras</button></div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+{% endblock -%}
+
+
+{% block scripts %}
+
+{% endblock %}

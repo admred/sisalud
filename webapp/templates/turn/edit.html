@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "bootstrap/utils.html" import render_icon %}
+{% from "bootstrap/forms.html" import render_form %}
+
+{%- block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="text-center text-muted" id="title">{{ title|default }}</h3>
+                <div class="mb-5 mt-5"></div>
+                <dl>
+                    <dt>Medico</dt>
+                    <dd>{{ form.doctor }}</dd>
+
+                    <dt>Especialidad</dt>
+                    <dd>{{ form.doctor.speciality_id }}</dd>
+
+                    <dt>Turno</dt>
+                    <dd>{{ form.when }}</dd>
+
+                    <dt>Duracion (min)</dt>
+                    <dd>{{ form.duration }}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form action="{{ request.full_path }}" class="mb-5" method="POST" role="form" id="form-1">
+                    {{ form }}
+                </form>
+                <input type="Submit" class="btn btn-success float-right" form="form-1" value="Enviar"/>
+                <button type="button"  onclick="history.back();"  class="btn btn-secondary">
+                    {{ render_icon('arrow-left') }}
+                    Volver
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock -%}

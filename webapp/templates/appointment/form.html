@@ -1,0 +1,10 @@
+{% extends "form.html" %}
+
+{%- block content %}
+    {{ super() }}
+{% endblock -%}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="/static/js/appointment/create.js" type="text/javascript"></script>
+{% endblock %}

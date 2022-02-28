@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{%- block content %}
+    {{ super() }}
+    <div id="chart" class="chart"></div>
+{% endblock -%}
+
+{% block scripts %}
+    {{ super() }}
+    <script src='/static/js/plotly-latest.min.js'></script>
+    <script type='text/javascript'>
+        var graphs = {{graphJSON | safe}};
+        Plotly.plot('chart',graphs,{});
+    </script>
+{% endblock %}

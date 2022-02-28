@@ -1,0 +1,53 @@
+{%- from 'bootstrap4/nav.html' import render_nav_item,render_breadcrumb_item -%}
+{%- from 'bootstrap4/utils.html' import render_icon -%}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4" >
+        <a class="navbar-brand" href="/">{{ render_icon('heart-fill',32) }} SiSalud</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Cambiar navegacion">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            {% if 'userid' in session %}
+              {{ render_nav_item("user.home",'Home',use_li=True) }}
+            {% else %}
+                {{ render_nav_item("site.home",'Home',use_li=True) }}
+            {% endif %}
+              {{ render_nav_item("speciality.list",'Especialidad',use_li=True) }}
+              {{ render_nav_item("socialsecure.list",'Coberturas Medicas',use_li=True) }}
+              {{ render_nav_item('schedule.list','Horarios',use_li=True) }}
+
+              <ul class="navbar-nav">
+                    <li class="nav-item dropdown float-right">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Estadisticas
+                        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/report/turn-by-speciality" title="Especialidades por turno">Especialidades por turno</a>
+                        <a class="dropdown-item" href="/report/turn-by-month" title="Turnos en meses">Turnos por mes</a>
+                    </div>
+                </li>
+            </ul>
+          </ul>
+          <ul class="navbar-nav">
+                {% if g and g.current_user %}
+                <li class="nav-item dropdown float-right">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ render_icon('person-fill') }} {{ g.current_user.username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/user/update/{{ session['userid'] }}" title="Cuenta">Cuenta</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/auth/logout" title="Terminar sesi&oacute;n">Salir</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item float-right">
+                    <a class="btn btn-primary" title="Registrar paciente" href="/user/create">Registrarse</a>
+                    <a class=" btn btn-success" title="Iniciar sesi&oacute;n"  href="/auth/login">Ingresar</a>
+                </li>
+                {% endif %}
+      </div>
+    </nav>
+</header>

@@ -1,0 +1,21 @@
+{%- from 'bootstrap4/utils.html' import render_messages -%}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon"  href="{{ url_for('static',filename='favicon.ico') }}"/>
+    {{ bootstrap.load_css() }}
+    <title>{{ title|default }}</title>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="container">
+        {{ render_messages(container=False,dismissible=True) }}
+        {% block content %}{% endblock %}
+    </div>
+    {{ bootstrap.load_js() }}
+    {% block scripts %}{% endblock %}
+</body>
+</html>

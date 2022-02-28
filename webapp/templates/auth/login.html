@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from   "bootstrap/form.html" import render_form %}
+
+{%- block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 mt-5" style="width:300px;max-width:600px" >
+                <h1 class="text-center text-muted">{{ title|default }}</h1>
+                {{ render_form(form,action=request.full_path,id='form-1') }}
+                <button type="submit" form="form-1" class="btn btn-primary pull-right">Ingresar</button>
+            </div>
+        </div>
+    </div>
+{% endblock -%}

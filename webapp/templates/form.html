@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "bootstrap4/form.html" import render_form %}
+{% from "bootstrap4/utils.html" import render_icon %}
+
+
+{% set arr = request.path.split('/') %}
+{% if arr|length == 3  %}
+    {% set _,object,action = arr  %}
+{% else %}
+    {% set _,object,action,idx  =  arr  %}
+{% endif %}
+
+{%- block content %}
+    {{ super() }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="text-center text-muted">{{ title|default }}</h3>
+                <div class="mb-5 mt-5"></div>
+                {% if g and g.writable %}
+                    {{ render_form(form,action=request.full_path,id='form-1' ) }}
+
+                {% else %}
+                <fieldset disabled>
+                    {{ render_form(form,action=request.full_path,id='form-1' ) }}
+                </fieldset>
+                {% endif %}
+                <div class="mb-5 mt-5"></div>
+                <div class="flex-row">
+                        <div class="btn-group" role="group" aria-label="Button group">
+                            {#
+                            <button onclick="history.back();" class="btn btn-secondary">
+                                {{ render_icon('arrow-left') }}
+                                Atras
+                            </button>
+                            #}
+                            <a  href="/" role="button" class="btn btn-secondary">
+                                {{ render_icon('arrow-left') }}
+                                Volver
+                            </a>
+
+                        </div>
+                    {% if  g and g.writable %}
+                        <div class="d-inline-block float-right">
+                            <div class="btn-group" role="group"  aria-label="Button group">
+                                    {% if action != 'create' and g.deletion %}
+                                    <button type="submit" form="form-2"  class="btn btn-danger" >
+                                        {{ render_icon('trash') }}
+                                        Borrar
+                                    </button>
+                                    {% endif %}
+                                    {% if action != 'detail' %}
+                                    <button type="submit" form="form-1"  class="btn btn-primary" >
+                                        {{ render_icon('check') }}
+                                        Aceptar
+                                    </button>
+                                    {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="/{{ object }}/delete/{{ idx }}"  id="form-2" method="POST"></form>
+{% endblock -%}

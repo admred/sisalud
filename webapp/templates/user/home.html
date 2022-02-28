@@ -1,0 +1,80 @@
+{%- extends "base.html" -%}
+{%- from 'bootstrap/utils.html' import render_icon -%}
+
+{%- block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="text-center mb-5">Menu principal</h3>
+                    <div class="d-flex flex-column" >
+
+                        <div class="card mb-3" >
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>
+                                        {{ render_icon('window') }}
+                                        Turno
+                                    </h5>
+                                </div>
+                                <a href="/turn/list" class="card-link">Listado</a>
+                                <a href="/turn/missed" class="card-link">Perdidos</a>
+                                <a href="/turn/waiting" class="card-link">Pendientes</a>
+                                <a href="/turn/request" class="card-link">Solicitar</a>
+                                {% if g.profile != 'patient' %}
+                                <a href="/turn/create" class="card-link">Crear</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if g.profile != 'patient' %}
+                        <div class="card mb-3" >
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>
+                                        {{ render_icon('window') }}
+                                        Agenda
+                                    </h5>
+                                </div>
+                                <a href="/appointment/list" class="card-link">Listado</a>
+                                <a href="/appointment/create" class="card-link">Crear</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if g.profile != 'patient' %}
+                        <div class="card mb-3" >
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>
+                                        {{ render_icon('window') }}
+                                        Usuario
+                                    </h5>
+                                </div>
+                                {% if g.profile in ['admin','receptionist'] %}
+                                <a href="/user/list" class="card-link">Listado</a>
+                                <a href="/user/create" class="card-link">Crear</a>
+                                {% endif %}
+                                <a href="/user/patients" class="card-link">Pacientes</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if g.profile == 'doctor' %}
+                        <div class="card mb-3" >
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>
+                                        {{ render_icon('window') }}
+                                        Estadistica
+                                    </h5>
+                                </div>
+                                <a href="/report/doctor-turn-by-month" class="card-link">Listado</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock -%}

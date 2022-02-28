@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% from    "bootstrap/pagination.html" import  render_pagination  %}
+
+{%- block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center text-muted">{{ title|default }}</h1>
+            <div  style="width:400px;margin: 0 auto">
+                <form role="form" id="form-2" method="GET"  action="{{ url_for('.search') }}">
+                    <hr/>
+                    <label class="sr-only">DNI del paciente</label>
+                    <div class="input-group">
+                        <input type="text" pattern="[1-9][0-9]{6,7}"  placeholder="DNI del Paciente"  name="q" class="form-control"/>
+                        <div class="input-group-btn">
+                            <button type="submit" form="form-2" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Buscar</button>
+                        </div>
+                    </div>
+                    <p class="help-block">{{ message|default }}</p>
+                </form>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-sm-12">
+                {% if rows and rows != []  %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                {% for h in headers %}
+                                    <th>{{ h }}</th>
+                                {% endfor %}
+
+                                <th>Cancelar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in rows  %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url_for('.detail',idx=row[0] ) }}" title="Detalle">{{ row[0] }}</a>
+                                </td>
+                                {% for d  in row[1:]  -%}
+                                <td>{{ d|e }}</td>
+                                {%- endfor %}
+                                <td class="" style="width: 80px;">
+                                    <a href="{{ url_for('.cancel',idx=row[0] ) }}" title="Cancelar turno"><span class="glyphicon glyphicon-remove"></span></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                {% if paginated %}
+                {{ render_pagination(pagination=paginated  ) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock -%}

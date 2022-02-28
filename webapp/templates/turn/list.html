@@ -1,0 +1,15 @@
+{% extends "list.html" %}
+
+{% block extra_buttons %}
+    {{ super() }}
+    <!--  DNR  -->
+    <div class="btn-group" role="group" aria-label="Filtrar">
+        <a href="{{ url_for('.list',a='available') }}" role="button" class="btn btn-outline-primary">Disponibles</a>
+        <a href="{{ url_for('.list',a='occupied') }}" role="button" class="btn btn-outline-primary"  >Ocupados</a>
+        <a href="{{ url_for('.list',a='all') }}" role="button" class="btn btn-outline-primary">Todos</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+{% endblock %}
