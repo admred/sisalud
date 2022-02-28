@@ -1,8 +1,7 @@
 # sisalud
 Un sistema para una tesis "Clinica de la Salud"
 
-# 1 
-# Como implementar (deploy) en ambiente Linux
+### 1  Como implementar (deploy) en ambiente Linux
 
 git clone https://github.com/admred/sisalud.git
 
@@ -19,18 +18,11 @@ pip3 install -r requeriments.txt
 ./run.sh
 
 
-# 2 
-# En navegador ingresar http://127.0.0.1:8000/
+### 2 En navegador ingresar http://127.0.0.1:8000/
 
-# 3 
-# Logearse con "admin" y "1234" 
+### 3 Logearse con "admin" y "1234" 
 
 Todos los usuarios tiene la contraseña 1234
 Listado puede ver la cuenta de los usuarios
 y logearse con ella para ver las opciones
 que segun el perfil van variando.
-
-
-
-
-
