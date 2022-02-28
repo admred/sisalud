@@ -23,7 +23,7 @@ pip3 install -r requeriments.txt
 
 ### 3 Logearse con "admin" y "1234" 
 
-Todos los usuarios tienen la contraseña 1234
-Listado puede ver la cuenta de los usuarios
-y logearse con ella para ver las opciones
-que segun el perfil van variando.
+Todos los usuarios tienen la contraseña 1234.
+Desde el "Listado" puede ver la cuenta de los usuarios
+y logearse con ella para ver las opciones.
+Segun el perfil van variando.
