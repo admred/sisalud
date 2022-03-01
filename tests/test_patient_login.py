@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
-import os
-import tempfile
 import pytest
-
 from random import randint
 from webapp import create_app
-from webapp.models import init_db
 
 patient=dict(
             username  = 'patient%d'%randint(1,1000),
@@ -38,12 +34,12 @@ def client(app):
 
 
 def test_login(client):
-    r=client.post('/user/create',data=patient)
-    assert r.status_code == 302 # found
+    r=client.post('/user/create',data=patient,follow_redirects=True)
+    assert r.status_code == 200
 
     r=client.post('/auth/login',data={
         'username':patient['username'],
         'password':patient['password'],
-        })
-    assert r.status_code == 302 # found
+        },follow_redirects=True)
+    assert r.status_code == 200
 
