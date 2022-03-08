@@ -2,6 +2,12 @@
 Un sistema de turnos en linea 
 para la tesis "Clinica de la Salud"
 
+### Prerequisitos
+- Tener instalado python 3.7 (o mayor)
+- sqlite 3.x instalado en el sistema
+- Libreria python3-venv
+
+
 ### 1  Como implementar (deploy) en ambiente Linux
 
 git clone https://github.com/admred/sisalud.git
