@@ -20,8 +20,8 @@ data=dict(
             )
 
 turn=dict(
-        when = '2022-03-31T10:00',
-        duration = '15',
+        when = '2022-10-01T11:00',
+        duration = '60',
         )
         
 class TestingConfig():
@@ -37,7 +37,7 @@ def app():
 def client(app):
     return app.test_client()
 
-def test_doctor_create_turn(client):
+def test_doctor_create_double_turn_fail(client):
     # first step register doctor with admin account
     r=client.post('/auth/login',data={
         'username':'admin',
@@ -58,6 +58,10 @@ def test_doctor_create_turn(client):
         },follow_redirects=True)
     assert r.status_code == 200 
     
-    # do register an appoinment book with doctor account
+    # first OK
     r=client.post('/turn/create',data=turn,follow_redirects=True)
     assert  "Se dio de alta un turno" in str(r.data)
+
+    # second it must fail
+    r=client.post('/turn/create',data=turn,follow_redirects=True)
+    assert  "El turno ya esta registrado" in str(r.data)

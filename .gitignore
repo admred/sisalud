@@ -5,6 +5,7 @@
 **.db
 **~
 
+Dockerfile
 frontend
 venv/**
 tools

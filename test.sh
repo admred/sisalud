@@ -1,3 +1,10 @@
 #!/bin/bash
 
-PYTHONPATH="." pytest -W ignore::DeprecationWarning
+. ./venv/bin/activate
+. ./env.ini
+
+PYTHONPATH="." 
+
+export PYTHONPATH
+
+./venv/bin/pytest -W ignore::DeprecationWarning
