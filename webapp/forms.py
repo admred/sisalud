@@ -46,14 +46,14 @@ class SearchTurnoForm(FlaskForm):
 class UserForm(FlaskForm):
     profile=QuerySelectField('Perfil',query_factory=lambda:Profile.query,get_label='name')
 
-    username=StringField(u'Usuario',validators=[DataRequired()])
-    password=StringField(u'Clave',validators=[DataRequired(),EqualTo('password2',message='Las claves debe coincidir')],widget=PasswordInput(hide_value=False) )
-    password2=StringField(u'Repetir Clave',validators=[DataRequired(),EqualTo('password',message='Las claves debe coincidir')],widget=PasswordInput(hide_value=False) )
+    username=StringField(u'Usuario',description="Obligatorio",validators=[DataRequired()])
+    password=StringField(u'Clave',description="Obligatorio",validators=[DataRequired(),EqualTo('password2',message='Las claves debe coincidir')],widget=PasswordInput(hide_value=False) )
+    password2=StringField(u'Repetir Clave',description="Obligatorio",validators=[DataRequired(),EqualTo('password',message='Las claves debe coincidir')],widget=PasswordInput(hide_value=False) )
 
-    dni=IntegerField(u'DNI',validators=[DataRequired()])
-    firstname=StringField(u'Primer Nombre',validators=[DataRequired()])
-    secondname=StringField(u'Segundo Nombre',validators=[DataRequired()])
-    lastname=StringField(u'Apellido',validators=[DataRequired()])
+    dni=IntegerField(u'DNI',description="Obligatorio",validators=[DataRequired()])
+    firstname=StringField(u'Primer Nombre',description="Obligatorio",validators=[DataRequired()])
+    secondname=StringField(u'Segundo Nombre',description="Obligatorio",validators=[DataRequired()])
+    lastname=StringField(u'Apellido',description="Obligatorio",validators=[DataRequired()])
     address=StringField(u'Domicilio')
     phone=StringField(u'Telefono')
     email=EmailField(u'Email')

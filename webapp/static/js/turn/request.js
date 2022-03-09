@@ -18,7 +18,9 @@ $(document).on('change','#doctor-1',function(){
 });
 
 $(document).on('change','input[type="radio"]:checked',function(){
-    $form.append('<button type="submit" id="g-submit-1" class="btn btn-success float-right">Aceptar</button>');
+    if( $('#g-submit-1').length == 0){
+        $form.append('<button type="submit" id="g-submit-1" class="btn btn-success float-right">Aceptar</button>');
+    }
 });
 
 

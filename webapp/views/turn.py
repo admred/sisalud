@@ -274,7 +274,7 @@ def missed():
 def waiting():
     title='Listado de turnos en espera'
 
-    # FIXED: SQLAlchemy can not resolve inherance at same time on query
+    # FIXED: SQLAlchemy doesnt resolve inherance at same time on query
     aPatient=aliased(User)
 
     query=(db.session
@@ -361,10 +361,30 @@ def create():
 
 
     if form.validate_on_submit():
+        if g.profile == 'doctor':
+            doctor_id=session['userid']
+        else:
+            doctor_id=request.form.get('doctor',0,int)
+
+        when=datetime.strptime(request.form.get('when',''),'%Y-%m-%dT%H:%M')
+
+        query=(db.session
+            .query(Turn)
+            .filter(
+                Turn.doctor_id == doctor_id,
+                Turn.when == when,
+                )
+            .first()
+            )
+        if query:
+            flash("El turno ya esta registrado : %s"%(when,),'danger')
+            return render_template('form.html',title='Crear turno',form=form)
+
+        # BUG: the turn appear on query but not in DB
+        # better place the checking before Turn()
         obj=Turn()
         form.populate_obj(obj)
-        if g.profile == 'doctor':
-            obj.doctor_id=session['userid']
+        obj.doctor_id=doctor_id
 
         try:
             db.session.add(obj)
@@ -375,7 +395,7 @@ def create():
             flash(str(ex),'danger')
             return render_template('form.html',title='Crear turno',form=form)
 
-        # set the next date
+        # set next date
         next_date=obj.when + timedelta(minutes=int(obj.duration))
         form.when.raw_data=[next_date.strftime('%Y-%m-%dT%H:%M')]
 

@@ -2,7 +2,7 @@
 from flask import Blueprint,jsonify
 from webapp.models import *
 from sqlalchemy.orm import aliased
-from datetime import datetime
+from datetime import datetime,timedelta
 
 bp=Blueprint('ajax',__name__)
 
@@ -32,12 +32,13 @@ def turn_by_doctor(_id):
             .filter(
                 Turn.doctor_id==_id,
                 Turn.is_available==True,
-                Turn.when >= datetime.today()
+                Turn.when >=datetime.today(),
+                Turn.when <=datetime.today()+timedelta(days=1),
                 )
-            .first()
+            .order_by(Turn.when.asc())
             )
     if query:
-        data=[ (query.id,str(query.when)) ]
+        data=[ (x.id,str(x.when)) for x in query ]
     else:
         data=[]
     return jsonify(data=data )
