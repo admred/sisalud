@@ -28,10 +28,15 @@ def update(_id):
     if g.profile == 'doctor':
         form.doctor.data=g.current_user
         form.doctor.render_kw={'selected':'','readonly':'','disabled':''}
-
+    
 
     if form.validate_on_submit():
         form.populate_obj(obj)
+        if obj.patient_id:
+            obj.is_available=False
+        else:
+            obj.is_available=True
+
         try:
             db.session.commit()
         except Exception as ex:
