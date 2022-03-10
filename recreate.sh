@@ -1,6 +1,5 @@
 #!/bin/bash
 
-killall python3
 rm webapp/database.db
 . env.ini
 . venv/bin/activate

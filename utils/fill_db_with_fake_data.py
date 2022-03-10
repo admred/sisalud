@@ -368,7 +368,7 @@ def insert_appointment():
         when=start_date+timedelta(days=day)
         for _id in doctors_ids:
             duration=choice([2,4,6,8])
-            cur.execute('INSERT INTO appointment ("when",duration,is_canceled,doctor_id) VALUES (?,?,?,?)',(when.strftime("%F %T"),duration,False,_id))
+            cur.execute('INSERT INTO appointment ("when",duration,is_canceled,doctor_id) VALUES (?,?,?,?)',(when.strftime("%F %T.%f"),duration,False,_id))
 
     con.commit()
     con.close()
@@ -396,7 +396,7 @@ def insert_turn():
     tomorrow=datetime.now()+timedelta(days=1)
     i = 0
     for s in appointments:
-        when=datetime.strptime(s[1],"%Y-%m-%d %H:%M:%S")
+        when=datetime.strptime(s[1],"%Y-%m-%d %H:%M:%S.%f")
         doctor_id=s[3]
         _stop=when+timedelta(hours=s[2])
         while when <= _stop:
@@ -411,7 +411,7 @@ def insert_turn():
                 patient_id = None
 
             cur.execute('INSERT INTO turn ("when",duration,is_available,is_missed,is_canceled,doctor_id,patient_id) VALUES (?,?,?,?,?,?,?)',(
-                when.strftime("%F %T"),
+                when.strftime("%Y-%m-%d %T.%f"),
                 duration,
                 is_available,
                 is_missed,

@@ -33,9 +33,9 @@ def turn_by_doctor(_id):
                 Turn.doctor_id==_id,
                 Turn.is_available==True,
                 Turn.when >=datetime.today(),
-                Turn.when <=datetime.today()+timedelta(days=1),
                 )
             .order_by(Turn.when.asc())
+            .limit(20)
             )
     if query:
         data=[ (x.id,str(x.when)) for x in query ]

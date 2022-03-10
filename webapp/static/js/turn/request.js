@@ -29,14 +29,14 @@ var old_duration;
 $('#when').on('change',function(){
     if(old_datetime){
         if(old_datetime + $('#duration-1').val != this.value){
-            console.log('return');
+            //console.log('return');
             return;
         }
     }
     old_duration=$('#duration-1').val;
     old_datetime=this.value;
-    console.log('old_datetime     = '+old_datetime);
-    console.log('current_datetime = '+this.value);
+    //console.log('old_datetime     = '+old_datetime);
+    //console.log('current_datetime = '+this.value);
 });
 
 $('#patient-dni-1').on('focusout',function(){
@@ -46,12 +46,12 @@ $('#patient-dni-1').on('focusout',function(){
         async:false
     }).done(function(response){
         const data=response.data;
-        console.log('data = '+data);
+        //console.log('data = '+data);
 
         $('#patient-msg-1').empty();
         $('#patient-id-1').val("");
         if(data  == undefined || data == ''){
-            console.log('data = '+data);
+            //console.log('data = '+data);
             $('#patient-msg-1').html('DNI no econtrado');
         }else{
             $('#patient-msg-1').html(data['fullname']);

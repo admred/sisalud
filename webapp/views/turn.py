@@ -372,7 +372,8 @@ def create():
             doctor_id=request.form.get('doctor',0,int)
 
         when=datetime.strptime(request.form.get('when',''),'%Y-%m-%dT%H:%M')
-
+            
+        # case 1 (easy) (simple matching)
         query=(db.session
             .query(Turn)
             .filter(
@@ -381,12 +382,32 @@ def create():
                 )
             .first()
             )
-        if query:
-            flash("El turno ya esta registrado : %s"%(when,),'danger')
+        turn_err=False
+        if query :
+            turn_err=True
+        
+        # case 2 (hard) (turn overlap one of 30 or 60 min) (head strike)
+        if turn_err == False:
+            query=Turn.query.filter(Turn.doctor_id==doctor_id,Turn.when<=when).order_by(Turn.when.desc()).first() 
+            if query:
+                turn=query
+                if turn.when + timedelta(minutes=turn.duration) > when:
+                    turn_err=True
+
+        
+        # case 3 (hard) (turn overlap the next) (tail strike)
+        if turn_err == False:
+            query=Turn.query.filter(Turn.doctor_id==doctor_id,Turn.when>=when).order_by(Turn.when.asc()).first() 
+            if query:
+                turn=query
+                if  when + timedelta(minutes=int(form.duration.data))  > turn.when :
+                    turn_err=True
+
+        if turn_err:
+            flash('El turno "%s" no se puede alojar.'%(when,),'danger')
             return render_template('form.html',title='Crear turno',form=form)
 
-        # BUG: the turn appear on query but not in DB
-        # better place the checking before Turn()
+        # BUG: the turn appear on query but it doesn't in the DB
         obj=Turn()
         form.populate_obj(obj)
         obj.doctor_id=doctor_id
